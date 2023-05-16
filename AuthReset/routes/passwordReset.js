@@ -14,7 +14,7 @@ ResetRoutes.put("/forget",async(req,res)=>{
         }
         let verificationCode = await generateVerificationCode(6);
     
-        await User.findOneAndUpdate({gmail:req.body.gmail},{$set:{currentOTP:verificationCode}});
+        await Users.findOneAndUpdate({gmail:req.body.gmail},{$set:{currentOTP:verificationCode}});
     
         let transporter = nodemailer.createTransport({
             service:'gmail',
@@ -50,7 +50,7 @@ ResetRoutes.put("/forget",async(req,res)=>{
 })
 ResetRoutes.post("/verification",async(req,res)=>{
     try {
-        let user = await User.findOne({gmail:req.body.gmail});
+        let user = await Users.findOne({gmail:req.body.gmail});
         if(user.currentOTP == req.body.verificationCode){
            return res.status(201).json({message:"Success",user:user})
         }
@@ -67,7 +67,7 @@ ResetRoutes.put("/updatePassword",async(req,res)=>{
         let salt =await bcrypt.genSalt(10);
         let userPassword = req.body.password.toString();
         let hashedPassword = await bcrypt.hash(userPassword,salt);
-        let user = await User.findOneAndUpdate({gmail:req.body.gmail},{$set:{password:hashedPassword}});
+        let user = await Users.findOneAndUpdate({gmail:req.body.gmail},{$set:{password:hashedPassword}});
         res.status(200).send("Password Updated");
     } catch (error) {
         console.log(error);

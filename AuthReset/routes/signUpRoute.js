@@ -13,7 +13,7 @@ signUpRoute.post("/",async(req,res)=>{
         let salt = await bcrypt.genSalt(10);
         let userPassword = req.body.password.toString();
         let hashedPassword = await bcrypt.hash(userPassword,salt)
-        newUser = await new User({
+        newUser = await new Users({
             userName:req.body.userName,
             gmail:req.body.gmail,
             password:hashedPassword

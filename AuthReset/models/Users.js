@@ -25,3 +25,4 @@ export const generateAuthToken = (id)=>{
 
 export default mongoose.model("Users", userSchema);
 
+
