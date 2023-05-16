@@ -6,6 +6,8 @@ import Users from '../models/Users.js';
 
 
 let ResetRoutes = express.Router();
+
+
 ResetRoutes.put("/forget",async(req,res)=>{
     try {
         let userAvail = await Users.findOne({gmail:req.body.gmail});
