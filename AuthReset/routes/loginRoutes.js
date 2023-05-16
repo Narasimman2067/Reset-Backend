@@ -16,7 +16,7 @@ loginRoute.post("/",async(req,res)=>{
     if(!validPassword){
         return res.status(400).send("Invalid password");
     }
-    const authToken = await generateAuthToken(userToLogin._id).save();
+    const authToken = await generateAuthToken(userToLogin._id);
     res.status(200).send({authToken:authToken,userName:userToLogin.userName});
     } catch (error) {
         console.log(error);
