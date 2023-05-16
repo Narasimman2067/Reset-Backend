@@ -1,7 +1,7 @@
 import express from 'express';
 
 import nodemailer from 'nodemailer';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import Users from '../models/Users.js';
 
 
@@ -61,7 +61,7 @@ ResetRoutes.post("/verification",async(req,res)=>{
         }
     } catch (error) {
         console.log(error);
-        res.status(500).send();
+      
     }
 })
 ResetRoutes.put("/updatePassword",async(req,res)=>{
@@ -70,22 +70,23 @@ ResetRoutes.put("/updatePassword",async(req,res)=>{
         let userPassword = req.body.password.toString();
         let hashedPassword = await bcrypt.hash(userPassword,salt);
         let user = await Users.findOneAndUpdate({gmail:req.body.gmail},{$set:{password:hashedPassword}});
-        res.status(200).send("Password Updated");
+        res.status(200).send("Password Updated",user);
     } catch (error) {
         console.log(error);
-        res.status(500).send();
+      
     }
 })
 function generateVerificationCode(num) {
     let randomString = "";
     let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let charactersLength = characters.length;
-    for (var i = 1; i <= num; i++) {
+    for (let i = 1; i <= num; i++) {
         randomString += characters.charAt(
             Math.floor(Math.random() * (charactersLength + i)) // just for randomly obtaining
         );
     }
-    console.log(randomString)
+    
     return randomString
+    
 }
 export default ResetRoutes;

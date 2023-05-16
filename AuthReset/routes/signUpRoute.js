@@ -1,6 +1,6 @@
 import express from 'express';
 
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import Users, { generateAuthToken } from '../models/Users.js';
 
 const signUpRoute = express.Router();
