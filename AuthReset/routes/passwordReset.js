@@ -21,14 +21,14 @@ ResetRoutes.put("/forget",async(req,res)=>{
         let transporter = nodemailer.createTransport({
             service:'gmail',
             auth:{
-                user:"mrbeastyt2067@gmail.com",
-                pass:"12345678"
+                user:process.env.usermail,
+                pass:process.env.userpass,
             }
         })
     
         let mailOptions={
-            from:'mrbeastyt2067@gmail.com',
-            to:req.body.gmail,
+            from:process.env.usermail,
+            to:gmail,
             subject: "User verification",
             html:`<h1>${verificationCode}</h1>`
     
