@@ -22,7 +22,7 @@ app.use(cors());
 
 app.use("/signUp", signUpRoute);
 app.use("/logIn", loginRoute);
-app.use("/reset", ResetRoutes);
+app.use("/", ResetRoutes);
 
 
 const PORT = process.env.PORT;
