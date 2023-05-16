@@ -28,7 +28,7 @@ ResetRoutes.put("/forget",async(req,res)=>{
     
         let mailOptions={
             from:'mrbeastyt2067@gmail.com',
-            to:req.body.gmail,
+            to:userAvail,
             subject: "User verification",
             html:`<h1>${verificationCode}</h1>`
     
